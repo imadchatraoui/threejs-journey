@@ -15,9 +15,9 @@ All course content is organized inside the `sections/` folder, with one director
 
 ```text
 sections/
-├── 01-basics/
-├── 02-classic-techniques/
-├── 03-debug-ui/
+├── 01-introduction/
+├── 02-webgl-threejs/
+├── 03-first-threejs-project/
 ├── 04-transform-objects/
 ├── 05-animations/
 ├── 06-cameras/
