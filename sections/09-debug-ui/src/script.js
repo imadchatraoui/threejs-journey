@@ -87,7 +87,9 @@ gui.add(geometry, 'widthSegments').min(1).max(30).step(1)
 errore perchè widthSegments non è una propietà di geometry
 è solo un parametro che passiamo a BoxGeometry quando lo instanziamo
 */
-/* DA RIVEDERE PERCHE' W H D SI RIMETTONO A 1 non rimangono salvata le ultime grandezze
+
+//DA RIVEDERE PERCHE' W H D SI RIMETTONO A 1 non rimangono salvata le ultime grandezze
+/* 
 debugObject.height = 1
 cubeTweaks.add(debugObject, 'height').min(0.5).max(3).step(0.01)
     .onFinishChange( () => {
@@ -109,6 +111,9 @@ cubeTweaks.add(debugObject, 'depth').min(0.5).max(3).step(0.01)
         mesh.geometry = new THREE.BoxGeometry(mesh.geometry.width,mesh.geometry.height,debugObject.depth, 2, 2,2)
     })
 */
+
+
+
   /**
  * Sizes
  */
