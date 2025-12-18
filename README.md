@@ -22,7 +22,9 @@ sections/
 ├── 05-animations/
 ├── 06-cameras/
 ├── 07-fullscreen-and-resizing/
-└── ...
+├── 08-geometries/
+├── 09-debug-ui/
+└── coming soon
 ```
 ## 🚀 How to Run
 
