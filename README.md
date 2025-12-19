@@ -24,6 +24,7 @@ sections/
 ├── 07-fullscreen-and-resizing/
 ├── 08-geometries/
 ├── 09-debug-ui/
+├── 10-textures/
 └── coming soon
 ```
 ## 🚀 How to Run
