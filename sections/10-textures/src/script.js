@@ -5,6 +5,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
  * Textures
  */
 
+
+const textureLoader = new THREE.TextureLoader()
+const texture = textureLoader.load('/textures/door/color.jpg')
+texture.colorSpace = THREE.SRGBColorSpace
+/*
 const image = new Image() // image is empty initially
 const texture = new THREE.Texture(image)
 texture.colorSpace = THREE.SRGBColorSpace
@@ -15,7 +20,7 @@ texture.colorSpace = THREE.SRGBColorSpace
 
  }
  image.src = '/textures/door/color.jpg'
-
+*/
 
 
 
