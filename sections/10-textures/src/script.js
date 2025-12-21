@@ -6,9 +6,76 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
  */
 
 
-const textureLoader = new THREE.TextureLoader()
-const texture = textureLoader.load('/textures/door/color.jpg')
-texture.colorSpace = THREE.SRGBColorSpace
+/*const texture = textureLoader.load(
+    '/textures/door/color.jpg',
+    () =>
+    {
+        console.log("load")
+    },
+    () =>
+    {
+        console.log("progress")
+    },
+    () =>
+    {
+        console.log("error")
+    }
+)*/ //call back functions
+const loadingManager = new THREE.LoadingManager()
+/*
+loadingManager.onStart = () =>
+{
+    console.log("onStart")
+}
+loadingManager.onLoad= () =>
+{
+    console.log("onLoad")
+}
+loadingManager.onProgress = () =>
+{
+    console.log("onProgress")
+}
+loadingManager.onError = () =>
+{
+    console.log("onError")
+}*/
+THREE.SphereGeometry
+const textureLoader = new THREE.TextureLoader( loadingManager)
+
+//const colorTexture = textureLoader.load('/textures/checkerboard-1024x1024.png')
+const colorTexture = textureLoader.load('/textures/minecraft.png')
+
+const alphaTexture = textureLoader.load('/textures/door/alpha.jpg')
+const normalTexture = textureLoader.load("/textures/door/normal.jpg")
+const heightTexture = textureLoader.load('/textures/door/height.jpg')
+const ambientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
+const metalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
+const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
+
+//repeat propertiy its a vector2
+//colorTexture.repeat.x = 2
+//colorTexture.repeat.y = 3
+//colorTexture.wrapS = THREE.RepeatWrapping
+//colorTexture.wrapT = THREE.RepeatWrapping
+//colorTexture.wrapS = THREE.MirroredWrapping
+//colorTexture.wrapT = THREE.MirroredWrapping
+
+//colorTexture.offset.x = 0.5
+//colorTexture.offset.y = 0.5
+
+//its not a vector2, u have to provide radiants
+//colorTexture.rotation = Math.PI/4
+
+//center e vector2, modifichiamo il pivot point, non piu in basso a sinistras
+//colorTexture.center.x = 0.5
+//colorTexture.center.y = 0.5
+
+colorTexture.generateMipmaps = false //non genererà piu le mipmaps (solo se si usa nearestFiler con minFilter)
+//colorTexture.minFilter = THREE.NearestFilter
+colorTexture.magFilter = THREE.NearestFilter
+
+
+colorTexture.colorSpace = THREE.SRGBColorSpace
 /*
 const image = new Image() // image is empty initially
 const texture = new THREE.Texture(image)
@@ -37,7 +104,8 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ map: texture })
+//console.log(geometry.attributes.uv)
+const material = new THREE.MeshBasicMaterial({ map: colorTexture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
