@@ -26,6 +26,8 @@ sections/
 ├── 09-debug-ui/
 ├── 10-textures/
 ├── 11-materials/
+├── 12-3d-text/
+├── 13-go-live/
 └── coming soon
 ```
 ## 🚀 How to Run
