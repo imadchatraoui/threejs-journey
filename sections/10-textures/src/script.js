@@ -39,7 +39,6 @@ loadingManager.onError = () =>
 {
     console.log("onError")
 }*/
-THREE.SphereGeometry
 const textureLoader = new THREE.TextureLoader( loadingManager)
 
 //const colorTexture = textureLoader.load('/textures/checkerboard-1024x1024.png')
