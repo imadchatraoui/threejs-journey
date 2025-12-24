@@ -9,45 +9,119 @@ import GUI from 'lil-gui'
 // Debug
 const gui = new GUI()
 
-/**
- * Textures
- */
 
-const texture = new THREE.TextureLoader()
-const door = texture.load("/door/color.jpg")
 
-console.log(door)
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
 
+
+/**
+ * Textures
+ */
+
+const texture = new THREE.TextureLoader()
+//const door = texture.load("/door/color.jpg")
+
+
 /**
  * House
  */
-// Temporary sphere
-// const sphere = new THREE.Mesh(
-//     new THREE.SphereGeometry(1, 32, 32),
-//     new THREE.MeshStandardMaterial({ roughness: 0.7 })
-// )
-// scene.add(sphere)
 
-const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(100,100),
-    new THREE.MeshToonMaterial()
+// Floor
+const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(20,20),
+    new THREE.MeshStandardMaterial()
 )
-plane.rotation.x = -Math.PI /2
-plane.material.side = THREE.DoubleSide
-scene.add(plane)
+floor.rotation.x = -Math.PI /2
+floor.material.side = THREE.DoubleSide
+scene.add(floor)
 
-const box = new THREE.Mesh(
-    new THREE.BoxGeometry(20,20,20),
-    new THREE.MeshBasicMaterial({map: door})
+// House container
+const house = new THREE.Group()
+scene.add(house)
+
+//walls
+const walls = new THREE.Mesh(
+    new THREE.BoxGeometry(4,2.5,4
+    ),
+    new THREE.MeshStandardMaterial()
 )
-box.position.y = 10.1
-scene.add(box)
+walls.position.y = 1.26
+house.add(walls)
 
+
+// roof
+const roof = new THREE.Mesh(
+    new THREE.ConeGeometry(3.5,1.5,4),
+    new THREE.MeshStandardMaterial()
+)
+roof.position.y = 3.25
+roof.rotation.y = Math.PI /4
+house.add(roof)
+
+// door
+const door = new THREE.Mesh(
+    new THREE.PlaneGeometry(2.2,2.2),
+    new THREE.MeshStandardMaterial()
+)
+door.position.y = 1
+door.position.z = 2 +0.001
+house.add(door)
+
+
+// bushes
+const bushGeometry = new THREE.SphereGeometry(1,16,16)
+const bushMaterial = new THREE.MeshStandardMaterial()
+
+const bush1 = new THREE.Mesh(bushGeometry,bushMaterial)
+bush1.position.set(0.8,0.2,2.2)
+bush1.scale.set(0.5,0.5,0.5)
+// or 
+//bush1.position.setScalar(0.5)
+
+const bush2 = new THREE.Mesh(bushGeometry,bushMaterial)
+bush2.position.set(1.4,0.1,2.1)
+bush2.scale.setScalar(0.25)
+
+const bush3 = new THREE.Mesh(bushGeometry,bushMaterial)
+bush3.position.set(-0.8,0.1,2.2)
+bush3.scale.setScalar(0.4)
+
+const bush4 = new THREE.Mesh(bushGeometry,bushMaterial)
+bush4.position.set(-1,0.05,2.6)
+bush4.scale.setScalar(0.15)
+house.add(bush1,bush2,bush3,bush4)
+
+// graves
+
+const graveGeometry = new THREE.BoxGeometry(0.6,0.8,0.2)
+const graveMaterial = new THREE.MeshStandardMaterial()
+
+
+// graves group
+
+const graves = new THREE.Group()
+scene.add(graves)
+for(let i = 0; i < 40; i++){
+
+    const angle = Math.random() * Math.PI *2
+    const radius = 3 + Math.random() * 4
+
+    // Mesh
+    const grave = new THREE.Mesh(graveGeometry,graveMaterial)
+    grave.position.x = Math.cos(angle) * radius
+    grave.position.z = Math.sin(angle) * radius
+    grave.position.y = Math.random() * 0.4
+    grave.rotation.x = (Math.random() -0.5) * 0.4
+    grave.rotation.y = (Math.random() -0.5) * 0.4
+    grave.rotation.z = (Math.random() -0.5) * 0.4
+
+    graves.add(grave)
+    
+}
 /**
  * Lights
  */
@@ -89,9 +163,9 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(110, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 20
-camera.position.y = 50
-camera.position.z = 40
+camera.position.x = 4
+camera.position.y = 2
+camera.position.z = 5
 scene.add(camera)
 
 // Controls
@@ -110,7 +184,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Animate
  */
-const timer = new Timer()
+const timer = new Timer() // we always used clock, now we use timer, its just an alternative that fixes some bugs
 
 const tick = () =>
 {
