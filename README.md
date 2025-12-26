@@ -32,6 +32,7 @@ sections/
 ├── 15-shadows/
 ├── 16-haunted-house/
 ├── 17-particles/
+├── 18-galaxy-generator/
 └── coming soon
 ```
 ## 🚀 How to Run
