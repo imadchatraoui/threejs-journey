@@ -126,7 +126,7 @@ const tick = () =>
     for(let i = 0; i < count; i++){
         const i3 = i*3
         const x = particlesGeometry.attributes.position.array[i3+0] //x
-        particlesGeometry.attributes.position.array[i3+1]= Math.sin(elapsedTime+x) //y
+        particlesGeometry.attributes.position.array[i3+1]= Math.sin(elapsedTime +x) //y
 
     }
     particlesGeometry.attributes.position.needsUpdate = true
