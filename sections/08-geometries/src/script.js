@@ -14,7 +14,7 @@ const geometry = new THREE.BufferGeometry()
 
 const count = 500
 const positionsArray = new Float32Array(count * 3 * 3) // 3 vertici per ogni triangolo, 3 valori per ogni vertice (x,y,z)
-for(let i = 0; i < count * 3 * 3; i++){
+for(let i = 0; i < 100; i++){
     positionsArray[i] = (Math.random() -0.5) *4
 }
 const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
