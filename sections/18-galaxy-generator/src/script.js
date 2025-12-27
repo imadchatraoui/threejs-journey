@@ -20,13 +20,13 @@ const scene = new THREE.Scene()
  */
 
 const parameters = {}
-parameters.count = 100000
+parameters.count = 643600
 parameters.size = 0.01
-parameters.radius = 5
+parameters.radius = 10.42
 parameters.branches = 3
 parameters.spin = 1
 parameters.randomness = 0.2
-parameters.randomnessPower = 3
+parameters.randomnessPower = 1.813
 parameters.insideColor = "#7033d5"
 parameters.outsideColor = "#0043f4"
 
@@ -62,10 +62,10 @@ const generateGalaxy = () =>{
         const i3 = i * 3
 
         // Position
-        const radius = Math.random() *  parameters.radius  // 0 to 5
-        const spinAngle = radius * parameters.spin // "radius" della singola particella
+        const radius = Math.random() *  parameters.radius  // va da 0 fino a
+        const spinAngle = radius * parameters.spin // "radius" di ogni particella e rand tra 0-5, viene quindi moltiplicato per lo spin che vogliamo dare se 1 rimane dritto 
         const branchAngle = i % parameters.branches / parameters.branches * Math.PI *2 
-
+        
         const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) 
         const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1)
         const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1)

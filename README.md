@@ -33,6 +33,7 @@ sections/
 ├── 16-haunted-house/
 ├── 17-particles/
 ├── 18-galaxy-generator/
+├── 19-scroll-based-animation/
 └── coming soon
 ```
 ## 🚀 How to Run
