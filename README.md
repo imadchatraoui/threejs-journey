@@ -6,8 +6,8 @@ This repository documents my progress through the **Three.js Journey** course by
 
 ![Three.js](https://img.shields.io/badge/Three.js-black?style=for-the-badge&logo=three.js&logoColor=white)
 ![WebGL](https://img.shields.io/badge/WebGL-black?style=for-the-badge&logo=webgl&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 
 ## 📂 Project Structure
 
