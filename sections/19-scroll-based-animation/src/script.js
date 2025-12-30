@@ -12,6 +12,9 @@ const parameters = {
 
 gui
     .addColor(parameters, 'materialColor')
+    .onChange( () =>{
+        material.color.set(parameters.materialColor)
+    })
 
 /**
  * Base
@@ -23,13 +26,59 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 /**
- * Test cube
+ * Objects
  */
-const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial({ color: '#ff0000' })
+
+// Texture
+
+const textureLoader = new THREE.TextureLoader()
+const gradientTexture = textureLoader.load('textures/gradients/3.jpg')
+// if the lights intesity its in the middle of the gradient it will take the closest one withouth mixing
+gradientTexture.magFilter = THREE.NearestFilter 
+gradientTexture.colorSpace = THREE.SRGBColorSpace
+// Material
+const material = new THREE.MeshToonMaterial()
+material.color = new THREE.Color(parameters.materialColor)
+material.gradientMap = gradientTexture
+
+//Meshes
+const objectDistance = 4
+const mesh1 = new THREE.Mesh(
+    new THREE.TorusGeometry(1, 0.4, 16,60),
+    material
 )
-scene.add(cube)
+
+const mesh2 = new THREE.Mesh(
+    new THREE.ConeGeometry(1, 2,32),
+    material
+)
+
+const mesh3 = new THREE.Mesh(
+    new THREE.TorusKnotGeometry(0.8,0.35,100,16),
+    material
+)
+// - per posizionarli verso il basso se no si impilavano verso l'altro
+mesh1.position.y = - objectDistance * 0 
+mesh2.position.y = - objectDistance * 1
+mesh3.position.y = - objectDistance * 2
+
+mesh1.position.x = 2
+mesh2.position.x = -2
+mesh3.position.x = 2
+scene.add(mesh1,mesh2,mesh3)
+
+const sectionMeshes = [mesh1,mesh2,mesh3]
+
+
+/**
+ * Lights
+ */
+const directionalLight = new THREE.DirectionalLight('#ffffff',3)
+directionalLight.position.set(1,1,0)
+scene.add(directionalLight)
+
+// const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight)
+// scene.add(directionalLightHelper)
 
 /**
  * Sizes
@@ -66,11 +115,23 @@ scene.add(camera)
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    alpha: true
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+/**
+ * Scroll
+ */
+
+let scrollY = window.scrollY
+window.addEventListener ('scroll', () =>{
+
+    scrollY = window.scrollY
+
+    
+})
 /**
  * Animate
  */
@@ -80,6 +141,13 @@ const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
+    // Animate camera
+    camera.position.y = -scrollY / sizes.height * objectDistance
+    // Animate meshes
+    for(const mesh of sectionMeshes){
+        mesh.rotation.x = elapsedTime * 0.1
+        mesh.rotation.y = elapsedTime * 0.15
+    }
     // Render
     renderer.render(scene, camera)
 
