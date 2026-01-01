@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import GUI from 'lil-gui'
-
+import gsap from 'gsap'
 /**
  * Debug
  */
@@ -14,7 +14,9 @@ gui
     .addColor(parameters, 'materialColor')
     .onChange( () =>{
         material.color.set(parameters.materialColor)
+        particlesMaterial.color.set(parameters.materialColor)
     })
+
 
 /**
  * Base
@@ -68,6 +70,32 @@ mesh3.position.x = 2
 scene.add(mesh1,mesh2,mesh3)
 
 const sectionMeshes = [mesh1,mesh2,mesh3]
+
+/**
+ * Particles
+ */
+// Geometry
+const particleCount = 200
+const positions = new Float32Array(particleCount*3)
+
+for (let i = 0; i< particleCount ; i++){
+    positions[i*3+0] = (Math.random() - 0.5) *10
+    positions[i*3+1] = objectDistance * 0.5 - Math.random() *objectDistance * sectionMeshes.length
+    positions[i*3+2] = (Math.random() - 0.5) *10
+
+}
+const particlesGeometry = new THREE.BufferGeometry()
+particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions,3))
+// Material
+const particlesMaterial = new THREE.PointsMaterial()
+particlesMaterial.color = new THREE.Color(parameters.color)
+particlesMaterial.sizeAttenuation = true
+particlesMaterial.size = 0.03
+
+// Points geometry + material
+
+const particles = new THREE.Points(particlesGeometry,particlesMaterial)
+scene.add(particles)
 
 
 /**
@@ -129,11 +157,28 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 
 let scrollY = window.scrollY
+let currentSection = 0
 window.addEventListener ('scroll', () =>{
 
     scrollY = window.scrollY
 
-    
+    const newSection = Math.round(scrollY / sizes.height)
+    // console.log(newSection) // 0, 1, 2 per ogni sezione mentre scrolliamo
+
+    if(newSection != currentSection){
+        currentSection = newSection
+
+        gsap.to(
+            sectionMeshes[currentSection].rotation,{
+                duration: 1.5,
+                ease: 'power2.inOut',
+                x: '+=6',
+                y: '+=3',
+                z: '+=1.5'
+            }
+
+        )
+    }
 })
 
 /**
@@ -159,17 +204,18 @@ const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
     const deltaTime = elapsedTime - previousTime
+    previousTime = elapsedTime
     // Animate camera
     camera.position.y = -scrollY / sizes.height * objectDistance
     const parallaxX = cursor.x
     const parallaxY = - cursor.y
-    cameraGroup.position.x += (parallaxX - cameraGroup.position.x) * 0.01
-    cameraGroup.position.y += (parallaxY - cameraGroup.position.y) *0.01
+    cameraGroup.position.x += (parallaxX - cameraGroup.position.x) * 1 * deltaTime
+    cameraGroup.position.y += (parallaxY - cameraGroup.position.y) * 1 * deltaTime
 
     // Animate meshes
     for(const mesh of sectionMeshes){
-        mesh.rotation.x = elapsedTime * 0.1
-        mesh.rotation.y = elapsedTime * 0.15
+        mesh.rotation.x += deltaTime * 0.1 // we add a value instead of assigning the rotation
+        mesh.rotation.y += deltaTime * 0.12
     }
     // Render
     renderer.render(scene, camera)
