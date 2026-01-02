@@ -35,6 +35,7 @@ sections/
 ├── 17-particles/
 ├── 18-galaxy-generator/
 ├── 19-scroll-based-animation/
+├── 20-physics/
 └── coming soon
 ```
 ## 🚀 How to Run
