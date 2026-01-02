@@ -21,10 +21,28 @@ const scene = new THREE.Scene()
 
 const gltfLoader = new GLTFLoader()
 gltfLoader.load(
-    '/models/Duck/glTF/Duck.gltf',
+    '/models/FlightHelmet/glTF/FlightHelmet.gltf', ///models/Duck/glTF-Binary/Duck.glb   OR   models/Duck/glTF-Embedded/Duck.gltf the draco one wont work
     (gltf) =>
-    {
-        console.log("success")
+    {   // per il casco aggiunge solo un child (ce ne sono 6)
+       // scene.add(gltf.scene.children[0]) // va bene quando ce un unico child
+
+    //PROBLEMA ogni child che preleviamo da gltf.scene viene rimosso da essa, it fucks up our loop.
+    //perchè a ogni ciclo viene rimosso il 1,2,3.. quando si preleva(quindi rimuove) il primo. il secondo scala alla prima posizione, quindi in 2 posizione ce il terzo
+
+    // SE facciamo il for each di un array su cui copiamo i children
+        // 1 SOLUZIONE
+       const children = [...gltf.scene.children]
+       for(const child of children){
+        scene.add(child)
+       }
+
+        // 2 SOLUZIONE
+        // while(gltf.scene.children.length > 0){
+        //     scene.add(gltf.scene.children[0])
+        // }
+    // Metodo più semplice e veloce, gltf.scene è un group, e come aggiungere un gruppo creato alla scena
+    scene.add(gltf.scene)
+        
     }
     // () =>
     // {
