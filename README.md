@@ -37,6 +37,7 @@ sections/
 ├── 19-scroll-based-animation/
 ├── 20-physics/
 ├── 21-imported-models/
+├── 21-raycaster-and-mouse-events/
 └── coming soon
 ```
 ## 🚀 How to Run
