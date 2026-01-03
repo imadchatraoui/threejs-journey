@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import GUI from 'lil-gui'
 import{ GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
 /**
  * Base
@@ -18,10 +19,17 @@ const scene = new THREE.Scene()
 /**
  * Models
  */
+const dracoLoader = new DRACOLoader()
+dracoLoader.setDecoderPath("/draco/")
 
 const gltfLoader = new GLTFLoader()
+gltfLoader.setDRACOLoader(dracoLoader)
+
+let mixer = null
+
+
 gltfLoader.load(
-    '/models/FlightHelmet/glTF/FlightHelmet.gltf', ///models/Duck/glTF-Binary/Duck.glb   OR   models/Duck/glTF-Embedded/Duck.gltf the draco one wont work
+    '/models/Fox/glTF/Fox.gltf', // /models/Duck/glTF-Binary/Duck.glb   OR   models/Duck/glTF-Embedded/Duck.gltf the draco one wont work for now. FlightHelmet: /models/FlightHelmet/glTF/FlightHelmet.gltf
     (gltf) =>
     {   // per il casco aggiunge solo un child (ce ne sono 6)
        // scene.add(gltf.scene.children[0]) // va bene quando ce un unico child
@@ -31,17 +39,23 @@ gltfLoader.load(
 
     // SE facciamo il for each di un array su cui copiamo i children
         // 1 SOLUZIONE
-       const children = [...gltf.scene.children]
-       for(const child of children){
-        scene.add(child)
-       }
+    //    const children = [...gltf.scene.children]
+    //    for(const child of children){
+    //     scene.add(child)
+    //    }
 
         // 2 SOLUZIONE
         // while(gltf.scene.children.length > 0){
         //     scene.add(gltf.scene.children[0])
         // }
     // Metodo più semplice e veloce, gltf.scene è un group, e come aggiungere un gruppo creato alla scena
-    scene.add(gltf.scene)
+
+    mixer = new THREE.AnimationMixer(gltf.scene)
+    const action = mixer.clipAction(gltf.animations[2])
+    action.play()
+    gltf.scene.scale.setScalar(0.025)
+    scene.add(gltf.scene) 
+
         
     }
     // () =>
@@ -150,6 +164,12 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
     const deltaTime = elapsedTime - previousTime
     previousTime = elapsedTime
+
+    // Update mixer
+    if(mixer !== null)
+    {
+    mixer.update(deltaTime)
+    }
 
     // Update controls
     controls.update()
