@@ -39,6 +39,7 @@ sections/
 ├── 22-raycaster-and-mouse-events/
 └── coming soon
 ```
+
 ## 🚀 How to Run
 
 Because each lesson is a separate project, you need to run them individually.
