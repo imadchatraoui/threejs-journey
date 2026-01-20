@@ -13,6 +13,7 @@ This repository documents my progress through the **Three.js Journey** course by
 
 All course content is organized inside the `sections/` folder, with one directory per lesson.
 
+
 ```text
 sections/
 ├── 01-introduction/
