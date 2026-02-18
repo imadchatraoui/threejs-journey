@@ -43,7 +43,6 @@ sections/
 ## 🚀 How to Run
 
 Because each lesson is a separate project, you need to run them individually.
-
 1.  **Clone the repository:**
     ```bash
     git clone [https://github.com/yourusername/threejs-journey.git](https://github.com/yourusername/threejs-journey.git)
