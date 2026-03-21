@@ -1,7 +1,10 @@
 # Three.js Journey 🚀
 
 This repository documents my progress through the **Three.js Journey** course by **Bruno Simon**. It includes exercises, experiments, and small projects built while learning 3D web development.
+
+
 ---
+
 
 ![Three.js](https://img.shields.io/badge/Three.js-black?style=for-the-badge&logo=three.js&logoColor=white)
 ![WebGL](https://img.shields.io/badge/WebGL-black?style=for-the-badge&logo=webgl&logoColor=white)
