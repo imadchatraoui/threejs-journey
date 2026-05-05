@@ -1,6 +1,5 @@
 
 
-ù
 # Three.js Journey 🚀
 This repository documents my progress through the **Three.js Journey** course by **Bruno Simon**. It includes exercises, experiments, and small projects built while learning 3D web development.
 
